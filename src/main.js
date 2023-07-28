@@ -2,55 +2,6 @@ import { createProject } from "./project";
 import { createTodo } from "./todo";
 import { renderProjects, renderTodos } from "./render";
 
-// Get references to DOM elements
-const addProjectBtn = document.querySelector("#add-project-btn");
-const modal = document.querySelector(".modal");
-const closeButton = document.querySelector(".close");
-const modalForm = document.querySelector(".modal form");
-const projectList = document.querySelector(".project-list");
-
-// Event listener to open the modal form when "Add Project" button is clicked
-addProjectBtn.addEventListener("click", (e) => {
-  modal.style.display = "block";
-});
-
-// Event listener to close the modal form when the close button is clicked
-closeButton.addEventListener("click", () => {
-  modal.style.display = "none";
-});
-
-// Event listener to close the modal form when the user clicks outside the modal content
-window.addEventListener("click", (event) => {
-  if (event.target === modal) {
-    modal.style.display = "none";
-  }
-});
-
-// Event listener to handle form submission when the user adds a new project
-modalForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  // Get values from the form inputs
-  const title = document.querySelector("#title").value;
-  const description = document.querySelector("#description").value;
-  const dueDate = document.querySelector("#dueDate").value;
-  const priority = document.querySelector("#priority").value;
-
-  // Create a new project using the createProject function from './project'
-  const newProject = createProject(title, description, dueDate, priority);
-
-  // Add the new project to the projects array
-  projects.push(newProject);
-
-  console.log("Updated projects array:", projects);
-
-  // Render the updated list of projects in the DOM
-  renderProjects(projects);
-
-  // Close the modal form after adding the project
-  modal.style.display = "none";
-});
-
 // Sample data for initial rendering
 const defaultProject = createProject("Default Project");
 const projects = [defaultProject];
@@ -68,6 +19,107 @@ const todo2 = createTodo(
   "Medium"
 );
 defaultProject.todos.push(todo1, todo2);
+
+// Get references to DOM elements for the project form
+const addProjectBtn = document.querySelector("#add-project-btn");
+const modal = document.querySelector(".modal");
+const closeButton = document.querySelector(".modal .close");
+const modalForm = document.querySelector(".modal form");
+
+// Get references to DOM elements for the todo form
+const addTodoBtn = document.querySelector("#add-todo-btn");
+const todoModal = document.querySelector(".todos .modal");
+const todoCloseButton = document.querySelector(".todos .modal .close");
+const todoModalForm = document.querySelector(".todos .modal form");
+
+// Event listener to open the modal form when "Add Project" button is clicked
+addProjectBtn.addEventListener("click", () => {
+  console.log("Add Project button clicked");
+  modal.style.display = "block";
+});
+
+// Event listener to close the modal form when the close button is clicked
+closeButton.addEventListener("click", () => {
+  console.log("Close button clicked");
+  modal.style.display = "none";
+});
+
+// Event listener to close the modal form when the user clicks outside the modal content
+window.addEventListener("click", (event) => {
+  if (event.target === modal) {
+    console.log("Clicked outside modal content");
+    modal.style.display = "none";
+  }
+});
+
+// Event listener to handle form submission when the user adds a new project
+modalForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  console.log("Project form submitted");
+
+  // Get values from the form inputs
+  const title = document.querySelector("#project-title").value;
+
+  // Create a new project using the createProject function from './project'
+  const newProject = createProject(title);
+
+  // Add the new project to the projects array
+  projects.push(newProject);
+
+  console.log("Updated projects array:", projects);
+
+  // Render the updated list of projects in the DOM
+  renderProjects(projects);
+
+  // Close the modal form after adding the project
+  modal.style.display = "none";
+});
+
+// Event listener to open the todo modal form when "Add Todo" button is clicked
+addTodoBtn.addEventListener("click", () => {
+  console.log("Add Todo button clicked");
+  todoModal.style.display = "block";
+});
+
+// Event listener to close the todo modal form when the close button is clicked
+todoCloseButton.addEventListener("click", () => {
+  console.log("Todo modal close button clicked");
+  todoModal.style.display = "none";
+});
+
+// Event listener to close the todo modal form when the user clicks outside the modal content
+window.addEventListener("click", (event) => {
+  if (event.target === todoModal) {
+    console.log("Clicked outside todo modal content");
+    todoModal.style.display = "none";
+  }
+});
+
+// Event listener to handle form submission when the user adds a new todo to the default project
+todoModalForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  console.log("Todo form submitted");
+
+  // Get values from the todo form inputs
+  const title = document.querySelector("#todo-title").value;
+  const description = document.querySelector("#todo-description").value;
+  const dueDate = document.querySelector("#todo-dueDate").value;
+  const priority = document.querySelector("#todo-priority").value;
+
+  // Create a new todo using the createTodo function from './todo'
+  const newTodo = createTodo(title, description, dueDate, priority);
+
+  // Add the new todo to the default project
+  defaultProject.todos.push(newTodo);
+
+  console.log("Updated todos array:", defaultProject.todos);
+
+  // Render the updated list of todos for the default project in the DOM
+  renderTodos(defaultProject.todos);
+
+  // Close the todo modal form after adding the todo
+  todoModal.style.display = "none";
+});
 
 // Initial rendering of projects and todos
 renderProjects(projects);
