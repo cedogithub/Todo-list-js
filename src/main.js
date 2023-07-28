@@ -32,6 +32,25 @@ const todoModal = document.querySelector(".todos .modal");
 const todoCloseButton = document.querySelector(".todos .modal .close");
 const todoModalForm = document.querySelector(".todos .modal form");
 
+// Declare a variable to keep track of the selected project
+let selectedProject = defaultProject;
+
+// Function to handle the click event on project list items
+const handleProjectClick = (event) => {
+  // Check if the clicked element is a project list item
+  if (event.target.tagName === 'LI') {
+    const projectIndex = event.target.dataset.projectIndex;
+    selectedProject = projects[projectIndex]; // Set the selected project
+
+    // Render the todos for the selected project
+    renderTodos(selectedProject.todos, selectedProject);
+  }
+};
+
+// Add event listener to the project list container
+const projectListContainer = document.querySelector('.project-list');
+projectListContainer.addEventListener('click', handleProjectClick);
+
 // Event listener to open the modal form when "Add Project" button is clicked
 addProjectBtn.addEventListener("click", () => {
   console.log("Add Project button clicked");
@@ -95,7 +114,7 @@ window.addEventListener("click", (event) => {
   }
 });
 
-// Event listener to handle form submission when the user adds a new todo to the default project
+// Event listener to handle form submission when the user adds a new todo to the selected project
 todoModalForm.addEventListener("submit", (e) => {
   e.preventDefault();
   console.log("Todo form submitted");
@@ -109,13 +128,13 @@ todoModalForm.addEventListener("submit", (e) => {
   // Create a new todo using the createTodo function from './todo'
   const newTodo = createTodo(title, description, dueDate, priority);
 
-  // Add the new todo to the default project
-  defaultProject.todos.push(newTodo);
+  // Add the new todo to the selected project instead of the default project
+  selectedProject.todos.push(newTodo);
 
-  console.log("Updated todos array:", defaultProject.todos);
+  console.log("Updated todos array:", selectedProject.todos);
 
-  // Render the updated list of todos for the default project in the DOM
-  renderTodos(defaultProject.todos);
+  // Render the updated list of todos for the selected project in the DOM
+  renderTodos(selectedProject.todos, selectedProject);
 
   // Close the todo modal form after adding the todo
   todoModal.style.display = "none";
@@ -123,4 +142,4 @@ todoModalForm.addEventListener("submit", (e) => {
 
 // Initial rendering of projects and todos
 renderProjects(projects);
-renderTodos(defaultProject.todos);
+renderTodos(defaultProject.todos, defaultProject);
