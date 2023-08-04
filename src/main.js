@@ -24,6 +24,7 @@ defaultProject.todos.push(todo1, todo2);
 const addProjectBtn = document.querySelector("#add-project-btn");
 const projectForm = document.querySelector("#project-form");
 const projectTitleInput = document.querySelector("#project-title");
+const projectCancelBtn = document.querySelector("#project-cancel");
 
 // Get references to DOM elements for the todo form
 const addTodoBtn = document.querySelector("#add-todo-btn");
@@ -33,64 +34,62 @@ const todoDescriptionInput = document.querySelector("#todo-description");
 const todoDueDateInput = document.querySelector("#todo-dueDate");
 const todoPriorityInput = document.querySelector("#todo-priority");
 
-
 // Declare a variable to keep track of the selected project
 let selectedProject = defaultProject;
 
 // Function to handle toggling the visibility of a form
 const toggleForm = (formId) => {
-    const form = document.querySelector(formId);
-    form.classList.toggle("hidden");
-  };
-  
-  // Event listener to open the project form when "Add Project" button is clicked
-  addProjectBtn.addEventListener("click", () => {
-    console.log("Add Project button clicked");
-    toggleForm("#project-form");
-  });
-  
-  // Event listener to open the todo form when "Add Todo" button is clicked
-  addTodoBtn.addEventListener("click", () => {
-    console.log("Add Todo button clicked");
-    toggleForm("#todo-form");
-  });
-// Function to handle the click event on project list items
-const handleProjectClick = (event) => {
-  // Check if the clicked element is a project list item
-  if (event.target.tagName === "LI") {
-    const projectIndex = event.target.dataset.projectIndex;
-    selectedProject = projects[projectIndex]; // Set the selected project
-
-    // Render the todos for the selected project
-    renderTodos(selectedProject.todos, selectedProject);
-  }
+  const form = document.querySelector(formId);
+  form.classList.toggle("hidden");
 };
 
-// Add event listener to the project list container
-const projectListContainer = document.querySelector(".project-list");
-projectListContainer.addEventListener("click", handleProjectClick);
+// Event listener to open the project form when "Add Project" button is clicked
+addProjectBtn.addEventListener("click", () => {
+  console.log("Add Project button clicked");
+  addProjectBtn.classList.toggle("hidden");
+  toggleForm("#project-form");
+});
 
 // Event listener to handle form submission when the user adds a new project
-projectForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  console.log("Project form submitted");
+  projectForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    console.log("Project form submitted");
 
-  // Get value from the form input
-  const title = projectTitleInput.value;
+    // Get value from the form input
+    const title = projectTitleInput.value;
 
-  // Create a new project using the createProject function from './project'
-  const newProject = createProject(title);
+    // Create a new project using the createProject function from './project'
+    const newProject = createProject(title);
 
-  // Add the new project to the projects array
-  projects.push(newProject);
+    // Add the new project to the projects array
+    projects.push(newProject);
 
-  console.log("Updated projects array:", projects);
+    console.log("Updated projects array:", projects);
 
-  // Render the updated list of projects in the DOM
-  renderProjects(projects);
+    // Render the updated list of projects in the DOM
+    renderProjects(projects);
 
-  // Clear the form input
-  projectTitleInput.value = "";
+    // Clear the form input
+    projectTitleInput.value = "";
+
+    // Hide the project form
+    toggleForm("#project-form");
+    addProjectBtn.classList.toggle("hidden");
+  });
+  
+// Event listener for "Cancel" button in the project form
+projectCancelBtn.addEventListener("click", (e) => {
+  e.preventDefault(); // Prevent form submission
+  console.log("Cancel button clicked");
+  // Hide the project form
+  toggleForm("#project-form");
+  addProjectBtn.classList.toggle("hidden");
+});
+
+// Event listener to open the todo form when "Add Todo" button is clicked
+addTodoBtn.addEventListener("click", () => {
+  console.log("Add Todo button clicked");
+  toggleForm("#todo-form");
 });
 
 // Event listener to handle form submission when the user adds a new todo to the selected project
@@ -120,6 +119,9 @@ todoForm.addEventListener("submit", (e) => {
   todoDescriptionInput.value = "";
   todoDueDateInput.value = "";
   todoPriorityInput.value = "high";
+
+  // Hide the todo form
+  toggleForm("#todo-form");
 });
 
 // Initial rendering of projects and todos
