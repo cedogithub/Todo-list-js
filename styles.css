@@ -1,70 +1,232 @@
+/* Import Google Fonts and set common styles */
 @import url('https://fonts.googleapis.com/css2?family=Poppins&family=REM&display=swap');
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-font-family: 'REM', sans-serif;
+
+/* Global styles */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'REM', sans-serif;
 }
-nav{
-        padding: 1.5rem 0;
-        border-bottom: 1.5px solid lightgray;
+
+body {
+  position: relative; /* Make the body the reference point for absolute positioning */
 }
-.nav__title{
-    font-size: 2rem;
-    text-align: center;
-    
+
+/* Overlay Styles */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+  backdrop-filter: blur(10px); /* Gaussian blur effect */
+  z-index: 1; /* Place the overlay on top of other elements */
+  display: none; /* Initially hidden */
+}
+
+/* Styling for the navigation bar */
+nav {
+  padding: 1.5rem 0;
+  border-bottom: 1.5px solid lightgray;
+  background-color: #de483a;
+  color: #fff;
+}
+
+.nav__title {
+  font-size: 2rem;
+  padding: 0 2rem;
 }
 
 /* Hide the form initially */
 .hidden {
-    display: none;
-  }
-  
+  display: none;
+}
+
 /* Modal Styles */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-  
-  .modal-content {
-    background-color: #fefefe;
-    margin: 10% auto;
-    padding: 1rem;
-    border-radius: 1rem;
-    border: 1px solid #888;
-    width: 400px;
-  }
-  ul{
-    list-style-type: none;
-  }
-  .project-title{
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-  .app-container{
-    display: flex;
-    height: 100vh;
-  }
-  .left-panel{
-    width: 350px;
-    padding: 2rem;
-  }
-  .right-panel{
-    flex: 1;
-    padding: 2rem;
-    background-color: whitesmoke;
-  }
-  button{
-    padding: 0.2rem 1rem;
-    border-radius: 1rem;
-    margin: 2px;    
-    border: 2px solid grey ;
-    outline: none;
-  }
+  display: none;
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+/* Show the overlay when the modal is active */
+.todo-modal.active {
+  display: block;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid #888;
+  width: 500px;
+}
+
+/* Remove list item bullet points */
+ul {
+  list-style-type: none;
+}
+
+/* Hover effect for list items */
+li:hover {
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
+/* Project Title Styles */
+.project-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* Flex container for the main app */
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Left Panel Styles */
+.left-panel {
+  width: 325px;
+  padding: 2rem;
+  background-color: whitesmoke;
+}
+
+/* Right Panel Styles */
+.right-panel {
+  flex: 1;
+  padding: 2rem;
+}
+
+/* Generic button styles */
+button {
+  padding: 0.2rem 1rem;
+  margin: 2px;
+  border: 2px solid grey;
+  outline: none;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Additional styles for the todo form */
+#todo-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.close {
+  font-size: 3rem;
+}
+
+.close:hover {
+  cursor: pointer;
+}
+
+#todo-form h2 {
+  text-align: center;
+}
+
+#todo-form button {
+  align-self: flex-start;
+}
+
+#todo-form input,
+select {
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+/* Todo Item Styles */
+.todo-item {
+  background-color: whitesmoke;
+  padding: 1rem;
+  border-left: 2px solid red;
+}
+
+.todo-item:hover {
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
+/* Projects Styles */
+.projects h2 {
+  margin-bottom: 1rem;
+}
+.projects h2::after {
+  display: block;
+    content: "";
+    border: 1px solid;
+    color: black;
+    margin: 8px 0;
+    border-radius: 4px;
+}
+
+/* Styles for project and todo add buttons */
+#project-form input {
+  margin: 0.5rem 0;
+  width: 100%;
+  padding: 0.2rem 0rem;
+}
+
+#add-project-btn,
+#add-todo-btn {
+  width: 100%;
+  padding: 0.5rem;
+  text-align: left;
+  background-color: transparent;
+  border: 2px solid transparent;
+  border-radius: 5px;
+}
+
+#add-project-btn:hover,
+#add-todo-btn:hover {
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
+/* Project List Item Styles */
+.project-list li {
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.5rem;
+  border-radius: 5px;
+}
+
+/* Styles for the list-ul icon in project list */
+.project-list li i {
+  margin-right: 10px;
+}
+
+/* Todo List Item Styles */
+.todo-list li {
+  margin: 1rem 0;
+}
+
+/* Styles for the Font Awesome icons in todo list */
+.todo-list i {
+  margin-right: 1rem;
+  margin-top: 1rem;
+}
+.todo-buttons{
+  display: flex;
+  justify-content: center;
+}
+
+.project-buttons{
+  display: flex;
+  justify-content: center;
+}
+.project-buttons button:hover,.todo-buttons button:hover{
+   background-color: lightgrey;
+   cursor: pointer;
+}
+
+

@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,11 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Todo List App</title>
   <link rel="stylesheet" href="../styles.css">
+  <script src="https://kit.fontawesome.com/345736990a.js" crossorigin="anonymous"></script>
 </head>
-<body>
-    <nav>
-      <div class="nav__title">Todo List</div>
-    </nav>
+<body>  
+  <div class="overlay"></div>
+
+  <nav>
+    <div class="nav__title">Todo List</div>
+  </nav>
   <main>
     <!-- App Container to wrap both panels -->
     <div class="app-container">
@@ -20,22 +22,26 @@
           <h2>Projects</h2>
           <ul class="project-list">
           </ul>
-          <button id="add-project-btn">Add Project</button>
-              <form id="project-form" class="hidden">
-                <h2>Add New Project</h2>
-                <label for="project-title">Title:</label>
-                <input type="text" id="project-title" required />
-                <button type="submit">Confirm</button>
-              </form>
+          <button id="add-project-btn"><i class="fas fa-plus fa-2x"></i> Add Project</button>
+          <form id="project-form" class="hidden">
+            <label for="project-title">Title:</label>
+            <input type="text" id="project-title" required />
+            <div class="project-buttons">
+            <button type="submit">Confirm</button>
+            <button id="project-cancel">Cancel</button></div>
+          </form>
         </div>
       </div>
       <!-- Right Panel for Todos -->
       <div class="right-panel">
         <div class="todos">
-           <ul class="todo-list">
+          <ul class="todo-list">
           </ul>
-              <form id="todo-form" class="hidden">
-                <h2>Add New Todo</h2>
+          <div class="modal todo-modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <form id="todo-form">
+                <h2>Add A New Task</h2>
                 <label for="todo-title">Title:</label>
                 <input type="text" id="todo-title" required />
                 <label for="todo-description">Description:</label>
@@ -48,11 +54,13 @@
                   <option value="medium">Medium</option>
                   <option value="low">Low</option>
                 </select>
-                <button type="submit">Confirm</button>
+                <div class="todo-buttons"> <button type="submit">Confirm</button>
+                <button id="todo-cancel">Cancel</button></div>
+               
               </form>
-           
-         
-          <button id="add-todo-btn">Add Task</button>
+            </div>
+          </div>
+          <button id="add-todo-btn"><i class="fas fa-plus fa-2x"></i> Add Task</button>
         </div>
       </div>
     </div>
