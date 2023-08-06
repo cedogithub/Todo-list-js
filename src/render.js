@@ -1,3 +1,5 @@
+import { format } from 'date-fns';  
+
 export const renderProjects = (projects) => {
   const projectListContainer = document.querySelector(".project-list");
   projectListContainer.innerHTML = ""; // Clear existing list to avoid duplicates
@@ -48,10 +50,11 @@ export const renderTodos = (todos, selectedProject) => {
     descriptionPara.textContent = `Description: ${todo.description}`;
     infoDiv.appendChild(descriptionPara);
 
-    // Create a paragraph element for the due date
-    const dueDatePara = document.createElement("p");
-    dueDatePara.textContent = `Due Date: ${todo.dueDate}`;
-    infoDiv.appendChild(dueDatePara);
+      // Create a paragraph element for the due date and use the format function
+      const dueDatePara = document.createElement("p");
+      const formattedDueDate = format(new Date(todo.dueDate), 'MMM d, yyyy');
+      dueDatePara.textContent = `Due Date: ${formattedDueDate}`;
+      infoDiv.appendChild(dueDatePara);
 
     // Create a paragraph element for the priority
     const priorityPara = document.createElement("p");
@@ -88,6 +91,7 @@ export const renderTodos = (todos, selectedProject) => {
     const handleTodoEdit = (todo) => {
       console.log(`Editing todo: ${todo.title}`);
       // Implement the logic to edit the todo here
+      
     };
   });
 };

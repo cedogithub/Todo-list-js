@@ -121,6 +121,7 @@ button {
 #todo-form {
   display: flex;
   flex-direction: column;
+  padding: 0 2rem;
 }
 
 .close {
@@ -143,6 +144,7 @@ button {
 select {
   padding: 0.5rem;
   margin: 0.5rem 0;
+  border-radius: 4px;
 }
 
 /* Todo Item Styles */
