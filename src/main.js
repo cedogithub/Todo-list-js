@@ -1,14 +1,11 @@
+// Import necessary modules
 import { createProject } from "./project";
 import { createTodo } from "./todo";
 import { renderProjects, renderTodos } from "./render";
 
 // Sample data for initial rendering
-// Check if there are saved projects in local storage
 const savedProjects = localStorage.getItem("projects");
-
 const defaultProject = createProject("Default Project");
-
-// If there are saved projects, parse the JSON string and assign it to the projects array
 const projects = savedProjects ? JSON.parse(savedProjects) : [defaultProject];
 
 // Function to handle the click event on project list items
@@ -27,6 +24,7 @@ const handleProjectClick = (event) => {
 const projectListContainer = document.querySelector(".project-list");
 projectListContainer.addEventListener("click", handleProjectClick);
 
+// Create sample todos
 const todo1 = createTodo(
   "Finish Project",
   "Finish the todo list project",
@@ -58,7 +56,6 @@ const todoDueDateInput = document.querySelector("#todo-dueDate");
 const todoPriorityInput = document.querySelector("#todo-priority");
 const overlay = document.querySelector(".overlay"); // Reference to the overlay element
 
-
 // Declare a variable to keep track of the selected project
 let selectedProject = defaultProject;
 
@@ -68,14 +65,14 @@ const toggleForm = (formId) => {
   form.classList.toggle("hidden");
 };
 
-// Event listener to open the project form when "Add Project" button is clicked
+// Event listener to open the project form
 addProjectBtn.addEventListener("click", () => {
   console.log("Add Project button clicked");
   addProjectBtn.classList.toggle("hidden");
   toggleForm("#project-form");
 });
 
-// Event listener to handle form submission when the user adds a new project
+// Event listener to handle form submission when adding a new project
 projectForm.addEventListener("submit", (e) => {
   e.preventDefault();
   console.log("Project form submitted");
@@ -101,11 +98,8 @@ projectForm.addEventListener("submit", (e) => {
   toggleForm("#project-form");
   addProjectBtn.classList.toggle("hidden");
 
-  
   // Save updated projects array to local storage
   localStorage.setItem("projects", JSON.stringify(projects));
-
-
 });
 
 // Event listener for "Cancel" button in the project form
@@ -117,21 +111,21 @@ projectCancelBtn.addEventListener("click", (e) => {
   addProjectBtn.classList.toggle("hidden");
 });
 
-// Event listener to open the todo modal form when "Add Todo" button is clicked
+// Event listener to open the todo modal form
 addTodoBtn.addEventListener("click", () => {
   console.log("Add Todo button clicked");
   todoModal.style.display = "block";
   overlay.style.display = "block";
 });
 
-// Event listener to close the todo modal form when the close button is clicked
+// Event listener to close the todo modal form
 todoCloseButton.addEventListener("click", () => {
   console.log("Todo modal close button clicked");
   todoModal.style.display = "none";
   overlay.style.display = "none";
 });
 
-// Event listener to close the todo modal form when the user clicks outside the modal content
+// Event listener to close the todo modal form when clicking outside
 window.addEventListener("click", (event) => {
   if (event.target === todoModal) {
     console.log("Clicked outside todo modal content");
@@ -139,6 +133,7 @@ window.addEventListener("click", (event) => {
     overlay.style.display = "none";
   }
 });
+
 // Check if there are saved todos for selected project in local storage
 const savedSelectedProjectTodos = localStorage.getItem("selectedProjectTodos");
 
@@ -146,8 +141,8 @@ const savedSelectedProjectTodos = localStorage.getItem("selectedProjectTodos");
 if (savedSelectedProjectTodos) {
   selectedProject.todos = JSON.parse(savedSelectedProjectTodos);
 }
-  
-// Event listener to handle form submission when the user adds a new todo to the selected project
+
+// Event listener to handle form submission when adding a new todo to the selected project
 todoModalForm.addEventListener("submit", (e) => {
   e.preventDefault();
   console.log("Todo form submitted");
@@ -179,10 +174,14 @@ todoModalForm.addEventListener("submit", (e) => {
   todoModal.style.display = "none";
   overlay.style.display = "none";
 
-    // Save updated todos array of selected project to local storage
-    localStorage.setItem("selectedProjectTodos", JSON.stringify(selectedProject.todos));
+  // Save updated todos array of selected project to local storage
+  localStorage.setItem("selectedProjectTodos", JSON.stringify(selectedProject.todos));
 
-
+    // Update the local storage for the entire projects array
+    const projectIndex = projects.indexOf(selectedProject);
+    if (projectIndex !== -1) {
+      localStorage.setItem("projects", JSON.stringify(projects));
+    }
 });
 
 // Event listener for "Cancel" button in the todo form
@@ -193,7 +192,6 @@ todoCancelBtn.addEventListener("click", (e) => {
   // Hide the todo modal form
   todoModal.style.display = "none";
   overlay.style.display = "none";
-
 });
 
 // Initial rendering of projects and todos
