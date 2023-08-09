@@ -3,8 +3,13 @@ import { createTodo } from "./todo";
 import { renderProjects, renderTodos } from "./render";
 
 // Sample data for initial rendering
+// Check if there are saved projects in local storage
+const savedProjects = localStorage.getItem("projects");
+
 const defaultProject = createProject("Default Project");
-const projects = [defaultProject];
+
+// If there are saved projects, parse the JSON string and assign it to the projects array
+const projects = savedProjects ? JSON.parse(savedProjects) : [defaultProject];
 
 // Function to handle the click event on project list items
 const handleProjectClick = (event) => {
@@ -95,6 +100,12 @@ projectForm.addEventListener("submit", (e) => {
   // Hide the project form
   toggleForm("#project-form");
   addProjectBtn.classList.toggle("hidden");
+
+  
+  // Save updated projects array to local storage
+  localStorage.setItem("projects", JSON.stringify(projects));
+
+
 });
 
 // Event listener for "Cancel" button in the project form
@@ -160,6 +171,8 @@ todoModalForm.addEventListener("submit", (e) => {
   // Hide the todo modal form
   todoModal.style.display = "none";
   overlay.style.display = "none";
+
+  
 });
 
 // Event listener for "Cancel" button in the todo form
