@@ -4,25 +4,49 @@ import { createTodo } from "./todo";
 import { renderProjects, renderTodos } from "./render";
 
 // Sample data for initial rendering
-const savedProjects = localStorage.getItem("projects");
+const savedProjects = localStorage.getItem("projects"); // Get saved projects from local storage
+
+// Create a default project if no saved projects are available
 const defaultProject = createProject("Default Project");
 const projects = savedProjects ? JSON.parse(savedProjects) : [defaultProject];
 
-// Function to handle the click event on project list items
-const handleProjectClick = (event) => {
-  // Check if the clicked element is a project list item
-  if (event.target.tagName === "LI") {
-    const projectIndex = event.target.dataset.projectIndex;
-    selectedProject = projects[projectIndex]; // Set the selected project
+// Function to save todos for the selected project to local storage
+export const saveTodosToLocalStorage = (project) => {
+  // Get the current list of projects from local storage
+  const savedProjects = JSON.parse(localStorage.getItem("projects")) || [];
+
+  // Find the index of the selected project in the list
+  const projectIndex = savedProjects.findIndex((p) => p.name === project.name);
+
+  // Update the todos for the selected project
+  if (projectIndex !== -1) {
+    savedProjects[projectIndex].todos = project.todos;
+  }
+
+  // Save the updated list of projects back to local storage
+  localStorage.setItem("projects", JSON.stringify(savedProjects));
+};
+
+// Get the container for the list of projects
+const projectListContainer = document.querySelector(".project-list");
+
+// Add a click event listener to the project list container
+projectListContainer.addEventListener("click", (event) => {
+  // Find the nearest <li> (list item) element to the clicked element
+  const clickedProjectListItem = event.target.closest("li");
+
+  // Check if a valid list item was clicked
+  if (clickedProjectListItem) {
+    // Get the project index from the clicked list item's data attribute
+    const clickedProjectIndex = clickedProjectListItem.dataset.projectIndex;
+
+    // Update the selected project based on the clicked index
+    selectedProject = projects[clickedProjectIndex];
 
     // Render the todos for the selected project
     renderTodos(selectedProject.todos, selectedProject);
   }
-};
-
-// Add event listener to the project list container
-const projectListContainer = document.querySelector(".project-list");
-projectListContainer.addEventListener("click", handleProjectClick);
+});
 
 // Create sample todos
 const todo1 = createTodo(
@@ -37,6 +61,8 @@ const todo2 = createTodo(
   "2023-07-25",
   "Medium"
 );
+
+// Add the sample todos to the default project
 defaultProject.todos.push(todo1, todo2);
 
 // Get references to DOM elements for the project form
@@ -134,14 +160,6 @@ window.addEventListener("click", (event) => {
   }
 });
 
-// Check if there are saved todos for selected project in local storage
-const savedSelectedProjectTodos = localStorage.getItem("selectedProjectTodos");
-
-// If there are saved todos, parse the JSON string and assign it to the selected project's todos array
-if (savedSelectedProjectTodos) {
-  selectedProject.todos = JSON.parse(savedSelectedProjectTodos);
-}
-
 // Event listener to handle form submission when adding a new todo to the selected project
 todoModalForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -174,14 +192,8 @@ todoModalForm.addEventListener("submit", (e) => {
   todoModal.style.display = "none";
   overlay.style.display = "none";
 
-  // Save updated todos array of selected project to local storage
-  localStorage.setItem("selectedProjectTodos", JSON.stringify(selectedProject.todos));
-
-    // Update the local storage for the entire projects array
-    const projectIndex = projects.indexOf(selectedProject);
-    if (projectIndex !== -1) {
-      localStorage.setItem("projects", JSON.stringify(projects));
-    }
+  // Save updated todos array for the selected project to local storage
+  saveTodosToLocalStorage(selectedProject);
 });
 
 // Event listener for "Cancel" button in the todo form

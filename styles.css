@@ -151,7 +151,6 @@ select {
 .todo-item {
   background-color: whitesmoke;
   padding: 1rem;
-  border-left: 2px solid red;
 }
 
 .todo-item:hover {
@@ -231,4 +230,17 @@ select {
    cursor: pointer;
 }
 
+/* Red border for high-priority todos */
+.high-priority {
+  border-left: 5px solid red;
+}
 
+/* Yellow border for medium-priority todos */
+.medium-priority {
+  border-left: 5px solid yellow;
+}
+
+/* Green border for low-priority todos */
+.low-priority {
+  border-left: 5px solid green;
+}
