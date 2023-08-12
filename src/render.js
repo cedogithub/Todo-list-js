@@ -90,7 +90,7 @@ export const renderTodos = (todos, selectedProject) => {
 
     // Create a Font Awesome icon for the garbage can and adding the delete logic to it
     const deleteIcon = document.createElement("i");
-    deleteIcon.classList.add("fas", "fa-trash-alt", "fa-1x"); // Font Awesome classes for the trash icon
+    deleteIcon.classList.add("fas", "fa-trash-alt", "fa-lg"); // Font Awesome classes for the trash icon
     deleteIcon.addEventListener("click", () => handleTodoDelete(todo));
     listItem.appendChild(deleteIcon);
 
