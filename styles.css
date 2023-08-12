@@ -146,11 +146,40 @@ select {
   margin: 0.5rem 0;
   border-radius: 4px;
 }
+#todo-cancel,#project-cancel {
+background-color: #cf5449;
+}
+#todo-cancel:hover,#project-cancel:hover {
+background-color: #a42419;
+}
+button[type="submit"] {
+  background: rgb(21, 125, 21);
+}
+button[type="submit"]:hover {
+  background: rgb(12, 105, 12);
+}
 
+
+
+.project-buttons button,.todo-buttons button{
+  font-weight: 700;
+  font-size: 1rem;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+}
 /* Todo Item Styles */
 .todo-item {
   background-color: whitesmoke;
   padding: 1rem;
+  border-radius: 0.2rem;
+  justify-content: space-between;
+  display: flex;
+}
+.todo-title{
+  font-weight: 800;
+  font-size: 1.1rem;
 }
 
 .todo-item:hover {
@@ -172,10 +201,13 @@ select {
 }
 
 /* Styles for project and todo add buttons */
-#project-form input {
+#project-form input,#todo-form input{
   margin: 0.5rem 0;
   width: 100%;
-  padding: 0.2rem 0rem;
+  border: none;
+  padding: 0.5rem 1rem;
+  outline: 1px solid lightgrey;
+  border-radius: 0.2rem;
 }
 
 #add-project-btn,
@@ -226,7 +258,6 @@ select {
   justify-content: center;
 }
 .project-buttons button:hover,.todo-buttons button:hover{
-   background-color: lightgrey;
    cursor: pointer;
 }
 
