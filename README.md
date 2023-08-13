@@ -1,6 +1,9 @@
-# Todo List App
+# CedoTask App
 
-The Todo List App is a simple web application that allows users to manage their tasks and projects efficiently.
+This Todo List App is a simple web application that allows users to manage their tasks and projects efficiently.
+![libraryauth](https://github.com/cedogithub/Todo-list-js/assets/39746523/92b8e5e1-e96a-4602-8fd4-379258982043)
+
+
 
 ## Introduction
 
@@ -23,19 +26,6 @@ The Todo List App is built using the following technologies:
 - Font Awesome for icons.
 - Google Fonts for font styles.
 
-## Usage
-
-1. **Adding a New Project**: Click the "Add Project" button, enter the project title, and click "Confirm."
-
-2. **Viewing Project Tasks**: Click on a project name in the left panel to view the tasks for that project in the right panel.
-
-3. **Adding a New Task**: Click the "Add Task" button, fill in the task details (title, description, due date, and priority), and click "Confirm."
-
-4. **Completing a Task**: Click the checkbox next to a task to mark it as completed.
-
-5. **Editing a Task**: Click the "Edit" icon next to a task to edit its details.
-
-6. **Deleting a Task**: Click the "Trash" icon next to a task to delete it.
 
 
 ## License
