@@ -1,6 +1,7 @@
 # CedoTask App
 
 This Todo List App is a simple web application that allows users to manage their tasks and projects efficiently.
+
 ![libraryauth](https://github.com/cedogithub/Todo-list-js/assets/39746523/92b8e5e1-e96a-4602-8fd4-379258982043)
 
 
